@@ -25,32 +25,60 @@ package AProject;
     가정함.)
 */
 
-
-
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class MiniProject06 {
+    static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("총 진행할 투표수를 입력해 주세요: ");
-        int total = sc.nextInt();
+    // 후보자 입력 및 리스트 생성
+    public static ArrayList<String> candiList(int candiCnt) {
 
-        System.out.print("가상 선거를 진행할 후보자 인원을 입력해 주세요: ");
-        int candiCnt = sc.nextInt();
-        sc.nextLine();  // 줄바꿈 문자 소비
+        ArrayList<String> candiList = new ArrayList<>();
 
-        ArrayList<String> candiName = new ArrayList<>();
-        for (int i = 1; i <= candiCnt; i++) {
-            System.out.printf("%d번째 후보자 이름을 입력해 주세요: ", i);
+        for (int i = 0; i < candiCnt; i++) {
+            System.out.printf("%d번째 후보자 이름을 입력해 주세요: ", i + 1);
             String name = sc.nextLine();
-            candiName.add(name);
+            candiList.add(name);
         }
         System.out.println();
 
+        return candiList;
+    }
+
+    public static void isVoting(int voteCtn, int candiCnt,ArrayList<String> candiList) {
+        Random random = new Random();
+        ArrayList<String> cntList = candiList;
+        ArrayList list = new ArrayList<>();
+
+        int num = random.nextInt(candiCnt); // 3 中 1 =>2
+
+
+
+
+        for (int i = 0; i < 0; i++) {
+
+            System.out.printf("[기호:%d] %s: %.02f%% \t(투표수: %d)");
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        System.out.print("총 진행할 투표수를 입력해 주세요: ");
+        int voteCtn = sc.nextInt();
+
+        System.out.print("가상 선거를 진행할 후보자 인원을 입력해 주세요: ");
+        int candiCnt = sc.nextInt();
+        sc.nextLine();
+
+        ArrayList<String> candiList = candiList(candiCnt);
 
         System.out.println("[투표진행률]: ");
+        isVoting(voteCtn, candiCnt, candiList);
+
 
         System.out.println("[투표결과] 당선인 : ");
     }
