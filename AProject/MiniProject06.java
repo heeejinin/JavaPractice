@@ -1,5 +1,4 @@
 package AProject;
-
 /*
     강희진
 
@@ -25,8 +24,8 @@ package AProject;
     가정함.)
 */
 
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -35,51 +34,62 @@ public class MiniProject06 {
 
     // 후보자 입력 및 리스트 생성
     public static ArrayList<String> candiList(int candiCnt) {
-
         ArrayList<String> candiList = new ArrayList<>();
-
         for (int i = 0; i < candiCnt; i++) {
             System.out.printf("%d번째 후보자 이름을 입력해 주세요: ", i + 1);
             String name = sc.nextLine();
             candiList.add(name);
         }
         System.out.println();
-
         return candiList;
     }
 
-    public static void isVoting(int voteCtn, int candiCnt,ArrayList<String> candiList) {
+    // 투표 진행 및 당선인 결과 출력
+    public static void isVoting(int voteCnt, int candiCnt, ArrayList<String> candiList) {
         Random random = new Random();
-        ArrayList<String> cntList = candiList;
-        ArrayList list = new ArrayList<>();
+        int[] votes = new int[candiCnt];
 
-        int num = random.nextInt(candiCnt); // 3 中 1 =>2
+        for (int i = 1; i <= voteCnt; i++) {
+            int num = random.nextInt(candiCnt); // 후보자 중 랜덤하게 선택
+            votes[num]++; // 해당 후보자에게 투표수 증가
 
+            // 진행률 계산
+            double progress = (i / (double) voteCnt) * 100;
+            System.out.printf("[투표진행률]: %.2f%%, %d명 투표 => %s\n", progress, i, candiList.get(num));
 
-
-
-        for (int i = 0; i < 0; i++) {
-
-            System.out.printf("[기호:%d] %s: %.02f%% \t(투표수: %d)");
+            // 각 후보자의 현재 투표 상황 출력
+            for (int j = 0; j < candiCnt; j++) {
+                double votePercent = (votes[j] / (double) i) * 100;
+                System.out.printf("[기호:%d] %-6s %.2f%%   (투표수: %d)\n", j + 1, candiList.get(j) + ":", votePercent, votes[j]);
+            }
+            System.out.println();
         }
 
+        // 최종 당선인 계산
+        int maxVotes = 0;
+        int winnerIndex = 0;
+        for (int i = 0; i < candiCnt; i++) {
+            if (votes[i] > maxVotes) {
+                maxVotes = votes[i];
+                winnerIndex = i;
+            }
+        }
+
+        System.out.println("[투표결과] 당선인 : " + candiList.get(winnerIndex));
     }
 
     public static void main(String[] args) {
-
         System.out.print("총 진행할 투표수를 입력해 주세요: ");
-        int voteCtn = sc.nextInt();
+        int voteCnt = sc.nextInt();
 
         System.out.print("가상 선거를 진행할 후보자 인원을 입력해 주세요: ");
         int candiCnt = sc.nextInt();
-        sc.nextLine();
+        sc.nextLine(); // 버퍼 비우기
 
+        // 후보자 생성
         ArrayList<String> candiList = candiList(candiCnt);
 
-        System.out.println("[투표진행률]: ");
-        isVoting(voteCtn, candiCnt, candiList);
-
-
-        System.out.println("[투표결과] 당선인 : ");
+        // 투표 진행 및 출력
+        isVoting(voteCnt, candiCnt, candiList);
     }
 }
