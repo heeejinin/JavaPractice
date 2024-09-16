@@ -12,6 +12,13 @@ class Point {
         this.y = y;
     }
 
+    // distanceTo 메서드
+    public double distanceTo(Point other) {
+        int dx = this.x - other.x;
+        int dy = this.y - other.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -76,6 +83,6 @@ public class Mission2 {
         }
 
         // 4. 가장 가까운 좌표 출력
-        System.out.printf("\n제일 가까운 좌표: %s => %.6f\n", closestPoint, minDistance);
+        System.out.printf("\n제일 가까운 좌표: \n%s => %.6f\n", closestPoint, minDistance);
     }
 }
